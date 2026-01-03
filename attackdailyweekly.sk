@@ -1,0 +1,100 @@
+command /weekly:
+    trigger:
+        set {_inv} to chest inventory with 1 row named "&9ᴡᴇᴇᴋʟʏ ʀᴇᴡᴀʀᴅ"
+        set slot 4 of {_inv} to lime stained glass named "&aᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴀɪᴍ"
+        open {_inv} to player
+
+on inventory click:
+    name of event-inventory is "&9ᴡᴇᴇᴋʟʏ ʀᴇᴡᴀʀᴅ"
+    cancel event
+    if clicked slot is 4:
+        set {_uuid} to player's uuid
+        if {weekly::%{_uuid}%} is set:
+            if {weekly::%{_uuid}%} > now:
+                set {_diff} to difference between {weekly::%{_uuid}%} and now
+                set {_seconds} to {_diff} parsed as number
+                set {_hours} to floor({_seconds} / 3600)
+                set {_minutes} to floor((({_seconds} - {_hours} * 3600) / 60))
+                send "&cʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ. ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ."
+                close player's inventory
+                stop
+
+        give player netherite ingot
+
+        set {weekly::%{_uuid}%} to now + 7 days
+        broadcast "&d &6%player% &7ᴄʟᴀɪᴍᴇᴅ ᴛʜᴇɪʀ &b&lWᴇᴇᴋʟʏ Rᴇᴡᴀʀᴅ &7"
+        close player's inventory
+
+command /daily:
+    trigger:
+        set {_cooldown} to {daily::%uuid of player%}
+        if {_cooldown} is set:
+            if {_cooldown} > now:
+                set {_timespan} to difference between {_cooldown} and now
+                set {_seconds} to {_timespan} parsed as number
+                set {_temp} to {_seconds} / 3600
+                set {_hours} to floor({_temp})
+                set {_leftoverSeconds} to {_seconds} - ({_hours} * 3600)
+                set {_minutes} to floor({_leftoverSeconds} / 60)
+                send "&cʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ʀᴇᴡᴀʀᴅ. ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ"
+                stop
+        set {_inv} to chest inventory with 1 row named "&aᴅᴀɪʟʏ"
+        set slot 4 of {_inv} to lime stained glass named "&aᴄʟᴀɪᴍ ʏᴏᴜʀ ʀᴇᴡᴀʀᴅ"
+        open {_inv} to player
+
+on inventory click:
+    name of event-inventory is "&aᴅᴀɪʟʏ"
+    cancel event
+    if clicked slot is 4:
+        set {_cooldown} to {daily::%uuid of player%}
+        if {_cooldown} is set:
+            if {_cooldown} > now:
+                set {_timespan} to difference between {_cooldown} and now
+                set {_seconds} to {_timespan} parsed as number
+                set {_temp} to {_seconds} / 3600
+                set {_hours} to floor({_temp})
+                set {_leftoverSeconds} to {_seconds} - ({_hours} * 3600)
+                set {_minutes} to floor({_leftoverSeconds} / 60)
+                send "&cʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ʀᴇᴡᴀʀᴅ. ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ."
+                close player's inventory
+                stop
+      	  give player diamond
+        broadcast "&a%player% &aᴊᴜꜱᴛ ᴄʟᴀɪᴍᴇᴅ ᴛʜᴇɪʀ ᴅᴀɪʟʏ ʀᴇᴡᴀʀᴅ! &7(&e/ᴅᴀɪʟʏ&7)"
+        set {daily::%uuid of player%} to now + 1 day
+        close player's inventory
+
+command /weeklyreset:
+    permission: op
+    trigger:
+        delete {weekly::%uuid of player%}
+        delete {weeklyranked::%uuid of player%}
+        send "&aYour weekly cooldown has been reset!"
+
+command /weeklyresetall:
+    permission: op
+    trigger:
+        loop all players:
+            delete {weekly::%uuid of loop-player%}
+            delete {weeklyranked::%uuid of loop-player%}
+            send "&d &aᴡᴇᴇᴋʟʏ ʀᴇᴡᴀʀᴅ ᴄᴏᴏʟᴅᴏᴡɴ &fʜᴀꜱ ʙᴇᴇɴ &bʀᴇꜱᴇᴛ &fꜰᴏʀ ᴀʟʟ ᴏɴʟɪɴᴇ ᴘʟᴀʏᴇʀꜱ!"
+
+command /resetdailyall:
+    permission: op
+    trigger:
+        loop all players:
+            delete {daily::%uuid of loop-player%}
+            delete {dailyranked::%uuid of loop-player%}
+            send "&d &aᴅᴀɪʟʏ ʀᴇᴡᴀʀᴅ ᴄᴏᴏʟᴅᴏᴡɴ &fʜᴀꜱ ʙᴇᴇɴ &bʀᴇꜱᴇᴛ &fꜰᴏʀ ᴀʟʟ ᴏɴʟɪɴᴇ ᴘʟᴀʏᴇʀꜱ!"
+
+command /resetdaily [<offline player>]:
+    permission: op
+    trigger:
+        if argument is not set:
+            send "&cᴘʟᴇᴀꜱᴇ ꜱᴘᴇᴄɪꜰʏ ᴀ ᴘʟᴀʏᴇʀ ᴛᴏ ʀᴇꜱᴇᴛ, ʟɪᴋᴇ &7/ʀᴇꜱᴇᴛᴅᴀɪʟʏ ɢᴏᴏɴᴇʀ101"
+            stop
+        set {_target} to argument
+        delete {daily::%uuid of {_target}%}
+        delete {dailyranked::%uuid of {_target}%}
+        send "&aꜱᴜᴄᴄᴇꜱꜱ!"
+        if {_target} is online:
+            send "&b &fʏᴏᴜʀ ᴅᴀɪʟʏ ᴄᴏᴏʟᴅᴏᴡɴ ʜᴀꜱ ʙᴇᴇɴ &aʀᴇꜱᴇᴛ &fʙʏ ᴀɴ ᴀᴅᴍɪɴ!" to {_target}
