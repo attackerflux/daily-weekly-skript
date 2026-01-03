@@ -6,19 +6,19 @@
 skript that gives people items with a command. opens a gui. requires skript 2.12+.
 # HERE ARE THE MAIN LINES 
 USE LINES 3-4 TO SET THE NAMES AND LORE OF THE GUI FOR /WEEKLY
-*make sure that line 8 name matches line 3 name* 
+(*make sure that line 8 name matches line 3 name*)
 USE LINES 43-44 TO SET THE NAME AND LORE OF THE GUI FOR /WEEKLY
-*make sure line 48 name matches line 43 name* 
+(*make sure line 48 name matches line 43 name*)
 
 # REWARDS
 USE LINE 22 TO SET THE WEEKLY REWARD
 USE LINE 61 TO SET THE DAILY REWARD
-**YOU CAN ADD MORE REWARDS BY ADDING MORE LINES**
+(**YOU CAN ADD MORE REWARDS BY ADDING MORE LINES**)
 
 
 # COMMANDS
 USE /DAILY AND /WEEKLY AS THE MAIN COMMANDS
-*you can also use /resetdaily (player) and /weeklyreset (player) to reset someones daily and weekly cooldown*
+*you can also use /resetdaily (player) and /weeklyreset (player) to reset someones daily and weekly cooldown - *
 *if you want to resets weekly/daily for EVERYONE ONLINE (NOT EVERYONE, EVERYONE ACTIVELY PLAYING) use /weeklyresetall and /resetdailyall*
 
 # PERMISSIONS AND OTHER FUN STUFF
