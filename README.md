@@ -25,3 +25,14 @@ USE /DAILY AND /WEEKLY AS THE MAIN COMMANDS
 *the permission for all reset commands is op. you can change this. /daily and /weekly have no permission, so anyone can use it.*
 *this was made in skript 2.12.1, however it should work in any higher versions.*
 
+
+# UPDATE 1.1 FULL INFO
+Lines are no longer used to set rewards. 
+
+Use /setdailyreward for the daily reward.
+
+Use /setweeklyreward for the daily reward.
+
+*op is required for the setreward commands.*
+
+A load message has been added. Nothing special.
