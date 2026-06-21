@@ -1,3 +1,8 @@
+on load:
+  loop all players:
+    if loop-player has op:
+      send "&edailyweekly skript loaded successfully. please read the README to setup. Contact ___attacker___ on discord if any errors occur." 
+
 command /weekly:
     trigger:
         set {_inv} to chest inventory with 1 row named "&9ᴡᴇᴇᴋʟʏ ʀᴇᴡᴀʀᴅ"
@@ -19,7 +24,7 @@ on inventory click:
                 close player's inventory
                 stop
 
-        give player netherite ingot
+        give player {weeklyreward}
 
         set {weekly::%{_uuid}%} to now + 7 days
         broadcast "&d &6%player% &7ᴄʟᴀɪᴍᴇᴅ ᴛʜᴇɪʀ &b&lWᴇᴇᴋʟʏ Rᴇᴡᴀʀᴅ &7"
@@ -58,7 +63,7 @@ on inventory click:
                 send "&cʏᴏᴜ'ᴠᴇ ᴀʟʀᴇᴀᴅʏ ᴄʟᴀɪᴍᴇᴅ ʏᴏᴜʀ ʀᴇᴡᴀʀᴅ. ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ."
                 close player's inventory
                 stop
-      	  give player diamond
+      	  give player {dailyreward}
         broadcast "&a%player% &aᴊᴜꜱᴛ ᴄʟᴀɪᴍᴇᴅ ᴛʜᴇɪʀ ᴅᴀɪʟʏ ʀᴇᴡᴀʀᴅ! &7(&e/ᴅᴀɪʟʏ&7)"
         set {daily::%uuid of player%} to now + 1 day
         close player's inventory
@@ -98,3 +103,17 @@ command /resetdaily [<offline player>]:
         send "&aꜱᴜᴄᴄᴇꜱꜱ!"
         if {_target} is online:
             send "&b &fʏᴏᴜʀ ᴅᴀɪʟʏ ᴄᴏᴏʟᴅᴏᴡɴ ʜᴀꜱ ʙᴇᴇɴ &aʀᴇꜱᴇᴛ &fʙʏ ᴀɴ ᴀᴅᴍɪɴ!" to {_target}
+
+
+
+command /setdailyreward:
+    permission: op
+    trigger:
+        set {dailyreward} to player's tool
+        send "&aitem in your hand has been set to the daily reward (read more info in the README in the download link!)"
+
+command /setweeklyreward:
+    permission: op
+    trigger:
+        set {weeklyreward} to player's tool
+        send "&aitem in your hand has been set to the weekly reward (read more info in the README in the download link!)"
