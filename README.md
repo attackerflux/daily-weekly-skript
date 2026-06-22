@@ -1,5 +1,6 @@
 # -----------------------------
 # ATTACKDAYWEEK
+## VERSION 1.1 (NEWEST INFO AT BOTTOM)
 # NO ADDONS 
 # SKRIPT 2.12.1
 # -------------------------------
